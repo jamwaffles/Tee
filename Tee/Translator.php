@@ -26,7 +26,7 @@ namespace Tee {
 			}
 
 			// Load translation map (JSON)
-			$path = rtrim(self::$conf->mapDirectory, '/') . '/' . self::$conf->locale . '.json';
+			$path = realpath('../../' . trim(self::$conf->mapDirectory, '/') . '/' . self::$conf->locale . '.json');
 
 			if(is_file($path)) {
 				$mapFile = file_get_contents($path);
