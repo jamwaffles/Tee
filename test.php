@@ -1,5 +1,12 @@
 <?php
 require_once 'Translator.php';
+
+use \Tee\Translator as Trans;
+
+Trans::configure(array(
+	'mapDirectory' => 'translations',
+	'locale' => 'de'
+));
 ?>
 
 <h1>Tee testing</h1>
