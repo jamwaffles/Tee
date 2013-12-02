@@ -7,6 +7,34 @@
 */
 namespace Tee {
 	class Translator {
+		private static $conf;
+		private static $translationMap;
+
+		/**
+		* @since v0.0.1
+		* @static
+		*
+		* Configure global Tee config
+		*
+		* @param Array $conf Configuration array
+		*/
+		public static function configure($conf) {
+			self::$conf = (object)$conf;
+
+			if(!isset(self::$conf->locale)) {
+				self::$conf->locale = 'gb';
+			}
+
+			// Load translation map (JSON)
+			$path = rtrim(self::$conf->mapDirectory, '/') . '/' . self::$conf->locale . '.json';
+
+			if(is_file($path)) {
+				$mapFile = file_get_contents($path);
+
+				self::$translationMap = (array)json_decode($mapFile);
+			}
+		}
+
 		/**
 		* @since v0.0.1
 		* @static
@@ -28,6 +56,14 @@ namespace Tee {
 			$string = array_shift($args);
 			$args = $args[0];
 			$output = '';
+
+			if(self::$translationMap) {
+				if(isset(self::$translationMap[$string])) {
+					$string = self::$translationMap[$string];
+				} else {
+					// Throw some sort of warning
+				}
+			}
 
 			if(count($args)) {
 				if(is_array($args[0])) {		// Array of args
