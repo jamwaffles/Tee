@@ -7,11 +7,13 @@ require_once 'Translator.php';
 <h2>Simple test</h2>
 
 <pre>
-<code>&lt;?= T("Hello world, my name is %s", 'James') ?></code>
+<code>&lt;?= T("Hello world, my name is Kerbal") ?>
+&lt;?= T("Hello world, my name is %s", 'James') ?>
+&lt;?= T("Hello world, my name is %s", array('Bob')) ?></code>
 </pre>
 
-<p>
-	<?= T("Hello world, my name is %s", 'James') ?>
-</p>
+<?= T("Hello world, my name is Kerbal") ?><br>
+<?= T("Hello world, my name is %s", 'James') ?><br>
+<?= T("Hello world, my name is %s", array('Bob')) ?>
 
 <hr>
