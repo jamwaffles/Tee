@@ -9,17 +9,17 @@ namespace Tee {
 			if(is_array($args[0])) {		// Array of args
 				$output = vsprintf($string, $args[0]);
 			} else {			// List of args
-				$output = sprintf($string, $args);
+				$output = sprintf($string, $args[0]);
 			}
 
 			return $output;
 		}
 	}
-};
+}
 
 namespace {
 	function T($string, $args = null) {
-		\Tee\Translator::translate($string, $args);
+		return \Tee\Translator::translate($string, $args);
 	}
 }
 ?>
