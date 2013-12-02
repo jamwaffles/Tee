@@ -1,0 +1,21 @@
+{
+    "name": "jamwaffles/tee",
+    "type": "library",
+    "description": "PHP 5.3+ translation framework, similar to Gettext",
+    "keywords": [ "translation", "tee", "i18n" ],
+    "homepage": "http://github.com/jamwaffles/Tee",
+    "version": "0.0.1",
+    "authors": [
+        {
+            "name": "James Waples",
+            "email": "jamwaffles@gmail.com",
+            "homepage": "http://www.jamwaffles.co.uk/"
+        }
+    ],
+    "require": {
+        
+    },
+    "autoload": {
+        "psr-0": { "Tee": "." }
+    }
+}
