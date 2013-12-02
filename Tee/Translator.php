@@ -15,19 +15,28 @@ namespace Tee {
 		* @param String $string The template string compatible with <code>sprintf()</code>
 		*
 		* @param Array $args Array of values to insert into the template string
-		* @param Multiple $args[...] A list of separate arguments to insert into the template string
+		* @param Mixed $args[...] A list of separate arguments to insert into the template string
 		*
 		* @return String The compiled string
+		*
+		* Example: \Tee\Translator::translate("Hello world")
+		* Example: \Tee\Translator::translate("Hello %s. I'm %d years old", 'world', 7)
+		* Example: \Tee\Translator::translate("Hello %s. I'm %d years old", array('world', 7))
 		*/
 		public static function translate() {
 			$args = func_get_args();
 			$string = array_shift($args);
+			$args = $args[0];
 			$output = '';
 
-			if(is_array($args[0])) {		// Array of args
-				$output = vsprintf($string, $args[0]);
-			} else {			// List of args
-				$output = sprintf($string, $args[0]);
+			if(count($args)) {
+				if(is_array($args[0])) {		// Array of args
+					$output = vsprintf($string, $args[0]);
+				} else {			// List of args
+					$output = sprintf($string, $args[0]);
+				}
+			} else {		// No placeholders, just return string
+				$output = $string;
 			}
 
 			return $output;
@@ -38,8 +47,13 @@ namespace Tee {
 namespace {
 	/**
 	* @global Function T
+	*
+	* A global convenience method for the namespaced translator function. See Tee\Translator::translate for usage
 	*/
-	function T($string, $args = null) {
+	function T() {
+		$args = func_get_args();
+		$string = array_shift($args);
+
 		return \Tee\Translator::translate($string, $args);
 	}
 }
