@@ -16,6 +16,9 @@
         
     },
     "autoload": {
-        "psr-0": { "Tee": "." }
+        "psr-0": {
+            "Tee": ".",
+            "Tee\\Adapter": "./Adapter"
+        }
     }
 }

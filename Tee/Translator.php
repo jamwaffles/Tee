@@ -8,7 +8,7 @@
 namespace Tee {
 	class Translator {
 		private static $conf;
-		private static $translationMap;
+		private static $adapter = null;
 
 		/**
 		* @since v0.0.1
@@ -18,20 +18,19 @@ namespace Tee {
 		*
 		* @param Array $conf Configuration array
 		*/
-		public static function configure($conf) {
+		public static function configure(array $conf) {
 			self::$conf = (object)$conf;
 
-			if(!isset(self::$conf->locale)) {
-				self::$conf->locale = 'gb';
-			}
+			if(!self::$adapter) {
+				if(isset(self::$conf->adapter)) {
+					$adapter = self::$conf->adapter;
 
-			// Load translation map (JSON)
-			$path = rtrim(self::$conf->mapDirectory, '/') . '/' . self::$conf->locale . '.json';
-
-			if(is_file($path)) {
-				$mapFile = file_get_contents($path);
-
-				self::$translationMap = (array)json_decode($mapFile);
+					if(class_exists($adapter)) {
+						self::$adapter = new $adapter (isset(self::$conf->adapterConfig) ? self::$conf->adapterConfig : array());
+					} else {
+						throw new \RuntimeException("Tee adapter {$adapter} not found");
+					}
+				}
 			}
 		}
 
@@ -53,29 +52,15 @@ namespace Tee {
 		*/
 		public static function translate() {
 			$args = func_get_args();
-			$string = array_shift($args);
-			$args = $args[0];
-			$output = '';
+			$key = array_shift($args);
+			$values = $args[0];
 
-			if(self::$translationMap) {
-				if(isset(self::$translationMap[$string])) {
-					$string = self::$translationMap[$string];
-				} else {
-					// Throw some sort of warning
-				}
+			// If values were passed as an array, it'll be nested. Un-nest it from the arguments list so it's passed to the adapter verbatim
+			if(count($values) && is_array($values[0])) {
+				$values = array_values($values[0]);
 			}
 
-			if(count($args)) {
-				if(is_array($args[0])) {		// Array of args
-					$output = vsprintf($string, $args[0]);
-				} else {			// List of args
-					$output = vsprintf($string, $args);
-				}
-			} else {		// No placeholders, just return string
-				$output = $string;
-			}
-
-			return $output;
+			return self::$adapter->translate($key, $values);
 		}
 	}
 }
