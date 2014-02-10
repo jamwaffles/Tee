@@ -69,7 +69,7 @@ namespace Tee {
 				if(is_array($args[0])) {		// Array of args
 					$output = vsprintf($string, $args[0]);
 				} else {			// List of args
-					$output = sprintf($string, $args[0]);
+					$output = vsprintf($string, $args);
 				}
 			} else {		// No placeholders, just return string
 				$output = $string;
