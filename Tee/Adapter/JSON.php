@@ -25,10 +25,11 @@ class JSON implements \Tee\Adapter\TeeAdapter {
 	}
 
 	public function translate($string, array $values = []) {
-		if(isset($this->map))
-
-		// Return string with placeholders replaced with actual values
-		return vsprintf($string, $values);
+		if(isset($this->map[$string])) {
+			return vsprintf($this->map[$string], $values);
+		} else {
+			return vsprintf($string, $values);
+		}
 	}
 }
 ?>
