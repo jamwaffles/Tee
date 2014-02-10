@@ -7,7 +7,6 @@
 */
 namespace Tee {
 	class Translator {
-		private static $conf;
 		private static $adapter = null;
 
 		/**
@@ -19,14 +18,15 @@ namespace Tee {
 		* @param Array $conf Configuration array
 		*/
 		public static function configure(array $conf) {
-			self::$conf = (object)$conf;
-
 			if(!self::$adapter) {
-				if(isset(self::$conf->adapter)) {
-					$adapter = self::$conf->adapter;
+				if(isset($conf['adapter'])) {
+					if(class_exists($conf['adapter'])) {
+						self::$adapter = new $conf['adapter'] ();
 
-					if(class_exists($adapter)) {
-						self::$adapter = new $adapter (isset(self::$conf->adapterConfig) ? self::$conf->adapterConfig : array());
+						$adapterConfig = isset($conf['adapterConfig']) ? $conf['adapterConfig'] : array();
+						$adapterConfig = array_merge($conf['adapterConfig'], $conf);
+
+						self::$adapter->configure($adapterConfig);
 					} else {
 						throw new \RuntimeException("Tee adapter {$adapter} not found");
 					}

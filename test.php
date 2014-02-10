@@ -5,10 +5,10 @@ use \Tee\Translator as Trans;
 
 Trans::configure(array(
 	'adapter' => '\\Tee\\Adapter\\JSON',
+	'adapterConfig' => array('translations' => 'example_translations/'),
 	'locale' => 'de'
 ));
 ?>
-
 <h1>Tee testing</h1>
 
 <h2>Simple test</h2>
