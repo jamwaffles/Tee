@@ -1,10 +1,10 @@
 <?php
-require_once 'Translator.php';
+require_once 'vendor/autoload.php';
 
 use \Tee\Translator as Trans;
 
 Trans::configure(array(
-	'mapDirectory' => 'translations',
+	'adapter' => '\\Tee\\Adapter\\JSON',
 	'locale' => 'de'
 ));
 ?>
