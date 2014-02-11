@@ -50,10 +50,27 @@ Or with the convinence method, `T()`, like this in your templates:
 
 ### JSON
 
-This adapter is bundled by default. Details on how to form a valid translation JSON file will be added here shortly.
+The JSON adapter uses standard JSON files to store translations in a `"original": "translation"` format. For example:
+
+	{
+		"Hello world, my name is %s": "Hallo Welt, mein Name ist %s"
+	}
+
+Configure Tee to use the `\Tee\Adapter\JSON` adapter like this:
+
+	Trans::configure(array(
+		'adapter' => '\\Tee\\Adapter\\JSON',
+		'adapterConfig' => array('translations' => 'resources/languages/'),
+		'locale' => 'de'		// Or whatever else
+	));
+
+Pass an array to `adapterConfig` to specify where the translations will be stored. The `locale` value is the name of the translation file without the `.json` extension. The configuration above would look for a file at 
+
+	resources/languages/de.json
 
 ## Todo
 
 - Documentation on the wiki
 - Modify JSON adapter file format to have a small config section so fallback languages can be specified
 - Add support for multiple caching mechanisms. Will look into supporting most common existing caching libraries. APC(u) will come first.
+- Better error reporting. Allow passing of logger instances?
