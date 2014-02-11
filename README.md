@@ -51,3 +51,9 @@ Or with the convinence method, `T()`, like this in your templates:
 ### JSON
 
 This adapter is bundled by default. Details on how to form a valid translation JSON file will be added here shortly.
+
+## Todo
+
+- Documentation on the wiki
+- Modify JSON adapter file format to have a small config section so fallback languages can be specified
+- Add support for multiple caching mechanisms. Will look into supporting most common existing caching libraries. APC(u) will come first.
