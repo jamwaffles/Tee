@@ -24,6 +24,6 @@ Trans::configure(array(
 <?= T("Hello world, my name is Kerbal") ?><br>
 <?= T("Hello world, my name is %s", 'James') ?><br>
 <?= T("Hello world, my name is %s", array('Bob')) ?><br>
-<?= T("Hello %s, my name is %s", array('Earth', 'Bob')) ?><br>
-<?= T("Hello %s, my name is %s", 'Earth', 'Bob') ?>
+<?= T("Hello %s, my name is %s", array('Earth', 'Jerry')) ?><br>
+<?= T("Hello %s, my name is %s", 'Earth', 'Fred') ?>
 <hr>
