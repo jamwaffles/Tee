@@ -4,7 +4,7 @@
     "description": "PHP 5.3+ translation framework, similar to Gettext",
     "keywords": [ "translation", "tee", "i18n" ],
     "homepage": "http://github.com/jamwaffles/Tee",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "authors": [
         {
             "name": "James Waples",
